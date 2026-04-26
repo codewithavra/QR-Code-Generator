@@ -3,11 +3,19 @@
  * @copyright codewithavra
  */
 
+/**
+ * Node modules
+ */
 import React from 'react'
 
-const InputSection = () => {
+type prop = {
+    preview: boolean;
+    setPreview: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+
+const InputSection = ({ preview, setPreview }: prop) => {
   return (
-    <div>InputSection</div>
+    <div className="size-full "></div>
   )
 }
 

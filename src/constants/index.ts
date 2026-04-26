@@ -3,10 +3,3 @@
  * @copyright codewithavra
  */
 
-import type { Content } from "../types";
-
-export const Contents : Content[] = [
-    {
-        placeHolder : 
-    }
-]
