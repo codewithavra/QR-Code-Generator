@@ -6,58 +6,69 @@
 /**
  * Node modules
  */
-import React from "react";
+import { type Dispatch, type SetStateAction } from "react";
 
+/**
+ * types
+ */
+import type { Options } from "../types";
 
+/**
+ * utilities
+ */
+import { updateOption } from "../utilities/updateOption";
 
 type prop = {
-  background: string;
-  setBackground: React.Dispatch<React.SetStateAction<string>>;
-  foreground: string;
-  setForeground: React.Dispatch<React.SetStateAction<string>>;
+  option: Options;
+  setOption: Dispatch<SetStateAction<Options>>;
 };
 
-const ColourPalette = ({
-  background,
-  setBackground,
-  foreground,
-  setForeground,
-}: prop) => {
+const ColourPalette = ({ option, setOption }: prop) => {
   return (
-    <div className="flex size-full flex-col items-center justify-between p-4 gap-2 bg-neutral-400/40 rounded-md">
+    <div className="flex size-full flex-col items-center justify-between gap-2 rounded-md bg-neutral-400/40 p-4">
       <div className="flex w-full items-center justify-start gap-2">
-        <label htmlFor="backgroundColour" className="flex gap-2 justify-center items-center">
+        <label
+          htmlFor="backgroundColour"
+          className="flex items-center justify-center gap-2"
+        >
           <p>Background Colour</p>
           <div
             className={`size-10 rounded-full border`}
-            style={{ backgroundColor: background }}
+            style={{ backgroundColor: option.background }}
           />
         </label>
         <input
           type="color"
           id="backgroundColour"
-          value={background}
-          onChange={(e) => setBackground(e.target.value)}
+          value={option.background}
+          onChange={(e) =>
+            updateOption(setOption, "background", e.target.value)
+          }
           className="sr-only"
         />
-        <p>{background}</p>
+        <p>{option.background}</p>
       </div>
       <div className="flex w-full items-center justify-start gap-2">
-        <label htmlFor="backgroundColour" className="flex gap-2 justify-center items-center">
+        <label
+          htmlFor="foregroundColour"
+          className="flex items-center justify-center gap-2"
+        >
           <p>Foreground Colour</p>
           <div
             className={`size-10 rounded-full border`}
-            style={{ backgroundColor: foreground }}
+            style={{ backgroundColor: option.foreground }}
           />
         </label>
         <input
           type="color"
           id="foregroundColour"
-          value={foreground}
-          onChange={(e) => setForeground(e.target.value)}
+          value={option.foreground}
+          onChange={(e) =>
+            updateOption(setOption, "foreground", e.target.value)
+          }
           className="sr-only"
         />
-        <p>{foreground}</p>
+        <p>{option.foreground}</p>
       </div>
     </div>
   );

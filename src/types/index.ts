@@ -9,3 +9,8 @@ export interface Options {
     foreground : string,
     data : string
 }
+
+export interface Preset {
+    template : TemplateType,
+    placeholder : string
+}
