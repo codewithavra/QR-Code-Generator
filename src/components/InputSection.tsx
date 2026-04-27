@@ -26,6 +26,7 @@ import { ecl, presets, sizeOfQr } from "../constants";
 
 /**utilities */
 import { updateOption } from "../utilities/updateOption";
+import { HiTemplate } from "react-icons/hi";
 
 type prop = {
   option: Options;
@@ -37,7 +38,7 @@ const InputSection = ({ option, setOption, onGenerate }: prop) => {
   return (
     <form className="flex size-full flex-col items-center justify-start gap-4">
       <div className="flex h-fit w-full flex-col items-center justify-between rounded-md border border-neutral-700/40 bg-neutral-50 p-2">
-        <div className="flex h-fit w-full items-center justify-start gap-2">
+        <div className="flex h-fit w-full items-center justify-start gap-2 text-lg font-bold text-neutral-700 pb-2">
           <BiPencil />
           <p>Content</p>
         </div>
@@ -48,8 +49,8 @@ const InputSection = ({ option, setOption, onGenerate }: prop) => {
         />
       </div>
       <div className="h-fit w-full rounded-md border border-neutral-700/40 bg-neutral-100 p-2">
-        <div className="flex h-fit w-full items-center justify-start gap-2 pb-2">
-          <BiPencil />
+        <div className="flex h-fit w-full items-center justify-start gap-2 pb-2 text-lg font-bold text-neutral-700">
+          <HiTemplate />
           <p>Templates</p>
         </div>
 
@@ -71,7 +72,7 @@ const InputSection = ({ option, setOption, onGenerate }: prop) => {
         </div>
       </div>
       <div className="flex h-fit w-full items-center justify-between rounded-md border border-neutral-700/40 bg-neutral-50 p-2 flex-col">
-        <div className="flex h-fit w-full items-center justify-start gap-2 pb-2">
+        <div className="flex h-fit w-full items-center justify-start gap-2 pb-2 text-lg font-bold text-neutral-700">
           <LuSettings />
           <p>Setting</p>
         </div>
