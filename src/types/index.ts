@@ -14,3 +14,13 @@ export interface Preset {
     template : TemplateType,
     placeholder : string
 }
+
+export interface SizeOfQr {
+    width : Width,
+    size : string
+}
+
+export interface ECL {
+    errorCorrectionLevel : ErrorCorrectionLevel,
+    label : string
+}

@@ -6,21 +6,18 @@
 /**
  * Node modules
  */
-import React, {
-  type Dispatch,
-  type RefObject,
-  type SetStateAction,
-} from "react";
+import { type Dispatch, type RefObject, type SetStateAction } from "react";
 
 /**
  * icons
  */
 
-import { BiColor } from "react-icons/bi";
+import { BiColor, BiDownload } from "react-icons/bi";
 import { MdPreview } from "react-icons/md";
 import ColourPalette from "./ColourPalette";
 import { BsQrCode } from "react-icons/bs";
 import type { Options } from "../types";
+import { download } from "../utilities/download";
 
 type prop = {
   preview: boolean;
@@ -37,7 +34,7 @@ const OutputSection = ({ preview, option, setOption, canvasRef }: prop) => {
           <MdPreview />
           <p>Preview</p>
         </div>
-        <div className="h-fit w-full rounded-md border border-neutral-700/40 bg-neutral-400/40 p-4 text-neutral-500">
+        <div className="h-fit w-full overflow-auto rounded-md border border-neutral-700/40 bg-neutral-400/40 p-4 text-neutral-500">
           {!preview && (
             <div className="flex h-56 w-full flex-col items-center justify-center gap-2">
               <BsQrCode className="size-15 md:size-20" />
@@ -49,6 +46,18 @@ const OutputSection = ({ preview, option, setOption, canvasRef }: prop) => {
             className={preview ? "mx-auto size-full" : "hidden"}
           />
         </div>
+        {preview && (
+          <button
+            className="flex h-fit w-full items-center justify-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-50 transition-transform duration-200 ease-in-out active:scale-95"
+            onClick={() => {
+              if (!canvasRef.current) return;
+              download(canvasRef.current, "qr-Image.png");
+            }}
+          >
+            <BiDownload />
+            <p>Download PNG</p>
+          </button>
+        )}
       </div>
       <div className="h-fit w-full rounded-md border border-neutral-700/40 bg-neutral-100 p-2">
         <div className="flex items-center gap-2 pb-2 text-lg font-bold text-neutral-700">

@@ -5,19 +5,26 @@
 
 /**
  * Node modules
- */
+*/
+import { type Dispatch, type SetStateAction } from "react";
 
 /**
  * icons
  */
 import { BiPencil, BiQr } from "react-icons/bi";
+import { LuSettings } from "react-icons/lu";
 
 /**
  * types
  */
 import type { Options } from "../types";
-import { presets } from "../constants";
-import { type Dispatch, type SetStateAction } from "react";
+
+/**
+ * constants
+ */
+import { ecl, presets, sizeOfQr } from "../constants";
+
+/**utilities */
 import { updateOption } from "../utilities/updateOption";
 
 type prop = {
@@ -29,7 +36,7 @@ type prop = {
 const InputSection = ({ option, setOption, onGenerate }: prop) => {
   return (
     <form className="flex size-full flex-col items-center justify-start gap-4">
-      <div className="h-fit w-full rounded-md border border-neutral-700/40 bg-neutral-50 p-2 flex flex-col justify-between items-center">
+      <div className="flex h-fit w-full flex-col items-center justify-between rounded-md border border-neutral-700/40 bg-neutral-50 p-2">
         <div className="flex h-fit w-full items-center justify-start gap-2">
           <BiPencil />
           <p>Content</p>
@@ -37,7 +44,7 @@ const InputSection = ({ option, setOption, onGenerate }: prop) => {
         <textarea
           value={option.data}
           onChange={(e) => updateOption(setOption, "data", e.target.value)}
-          className="resize-none rounded-md border border-neutral-700/40 min-h-30 bg-neutral-400/40 w-full p-4"
+          className="min-h-30 w-full resize-none rounded-md border border-neutral-700/40 bg-neutral-400/40 p-4"
         />
       </div>
       <div className="h-fit w-full rounded-md border border-neutral-700/40 bg-neutral-100 p-2">
@@ -63,7 +70,39 @@ const InputSection = ({ option, setOption, onGenerate }: prop) => {
           })}
         </div>
       </div>
-      <div className="h-fit w-full rounded-md border border-neutral-700/40 bg-neutral-50 p-2"></div>
+      <div className="flex h-fit w-full items-center justify-between rounded-md border border-neutral-700/40 bg-neutral-50 p-2 flex-col">
+        <div className="flex h-fit w-full items-center justify-start gap-2 pb-2">
+          <LuSettings />
+          <p>Setting</p>
+        </div>
+        <div className="flex h-fit w-full items-center justify-baseline gap-2">
+        <div className="flex h-fit w-1/2 flex-col items-center justify-between">
+          <label htmlFor="selectSize" className="w-full pb-2">Size</label>
+          <select id="selectSize" className="bg-neutral-400/40 p-2 w-full h-fit rounded-md border border-neutral-700/40 focus:outline-none" value={option.width} onChange={(e)=>updateOption(setOption,"width", Number(e.target.value) as Options["width"])}>
+            {sizeOfQr.map((item) => {
+              return (
+                <option value={item.width} key={item.size} className="bg-neutral-400/40">
+                  {item.size}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="flex h-fit w-1/2 flex-col items-center justify-between">
+          <label htmlFor="selectEcl" className="w-full pb-2">Error Correction</label>
+          <select id="selectEcl" className="bg-neutral-400/40 p-2 w-full h-fit rounded-md border border-neutral-700/40 focus:outline-none" value={option.ecl} onChange={(e)=>updateOption(setOption,"ecl",e.target.value as Options["ecl"])}>
+            {ecl.map((item) => {
+              return (
+                <option value={item.errorCorrectionLevel} key={item.label} className="bg-neutral-400/40">
+                  {item.label}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        </div>
+        
+      </div>
       <div className="h-fit w-full">
         <button
           type="button"
