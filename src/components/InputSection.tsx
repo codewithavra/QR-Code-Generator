@@ -59,7 +59,7 @@ const InputSection = ({ option, setOption, onGenerate }: prop) => {
             return (
               <button
                 type="button"
-                className={`col-span-1 row-span-1 w-full rounded-md p-2 transition-transform duration-200 ease-in-out active:scale-95 ${option.data === item.placeholder ? "bg-neutral-600/40" : "bg-neutral-400/40"}`}
+                className={`col-span-1 row-span-1 w-full rounded-md p-2 transition-transform duration-200 ease-in-out border border-neutral-700/40 active:scale-95 ${option.data === item.placeholder ? "bg-neutral-600/40" : "bg-neutral-400/40"}`}
                 key={index}
                 onClick={() =>
                   updateOption(setOption, "data", item.placeholder)
