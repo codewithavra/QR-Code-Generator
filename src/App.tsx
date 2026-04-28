@@ -6,6 +6,7 @@
 /**
  * Node modules
  */
+
 import { useRef, useState } from "react";
 import type { Options } from "./types";
 
