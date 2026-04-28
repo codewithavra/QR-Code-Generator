@@ -36,6 +36,8 @@ const App = () => {
     await qrcodeGenerator(option, canvasRef.current);
     setPreview(true);
   };
+  const[heading,setHeading] = useState<string>("Sample Heading")
+  const[description,setDescription] = useState<string>("This is a sample description")
 
   return (
     <div
@@ -63,6 +65,10 @@ const App = () => {
             onGenerate={handleGenerate}
             option={option}
             setOption={setOption}
+            heading={heading}
+            setHeading={setHeading}
+            description={description}
+            setDescription={setDescription}
           />
         </section>
 
@@ -74,6 +80,8 @@ const App = () => {
             setOption={setOption}
             option={option}
             canvasRef={canvasRef}
+            heading={heading}
+            description={description}
           />
         </section>
       </div>

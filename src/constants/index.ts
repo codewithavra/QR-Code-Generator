@@ -24,8 +24,7 @@ export const presets: Preset[] = [
   },
   {
     template: "Contact card",
-    placeholder:
-      "BEGIN:VCARD\nVERSION:3.0\nFN:John Doe\nTEL:+1234567890\nEMAIL:john@example.com\nEND:VCARD",
+    placeholder: "BEGIN:VCARD\nVERSION:3.0\nN:Doe;John;;;\nFN:John Doe\nORG:Example Company\nTITLE:Software Engineer\nTEL;TYPE=CELL:+1234567890\nEMAIL;TYPE=INTERNET:john@example.com\nADR;TYPE=HOME:;;123 Main Street;City;State;12345;Country\nURL:https://example.com\nEND:VCARD",
     icon: MdContacts,
   },
   {
