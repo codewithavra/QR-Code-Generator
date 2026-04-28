@@ -50,7 +50,7 @@ const App = () => {
       {/* heading */}
       <div className="mx-auto h-fit w-full px-4 pt-4 lg:w-[90%] lg:max-w-5xl">
         <div className="flex items-center gap-2 text-4xl font-bold">
-          <BiQr/>
+        <img src="/qr-craft-logo.svg" width={36} height={36} alt="QR Craft" />
           <p>QR Craft</p>
         </div>
         <p className="text-sm text-neutral-500">
