@@ -11,11 +11,6 @@ import { useRef, useState } from "react";
 import type { Options } from "./types";
 
 /**
- * icons
- */
-import { BiQr } from "react-icons/bi";
-
-/**
  * Components
  */
 import InputSection from "./components/InputSection";
