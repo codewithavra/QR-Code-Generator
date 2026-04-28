@@ -1,13 +1,80 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Basic -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qr-craft</title>
+
+    <!-- Title (VERY important for SEO) -->
+    <title>QR Craft – Free Custom QR Code Generator</title>
+
+    <!-- Meta Description -->
+    <meta 
+      name="description" 
+      content="Generate customizable QR codes instantly with QR Craft. Adjust colors, size, error correction, and download high-quality QR codes for free." 
+    />
+
+    <!-- Keywords (less important but harmless) -->
+    <meta 
+      name="keywords" 
+      content="QR code generator, custom QR code, QR maker, free QR code, QR code download" 
+    />
+
+    <!-- Author -->
+    <meta name="author" content="Avranil" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
+
+    <!-- Open Graph (for social sharing) -->
+    <meta property="og:title" content="QR Craft – Custom QR Code Generator" />
+    <meta property="og:description" content="Create and customize QR codes instantly. Free, fast, and easy to use." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://qr-craft-iota.vercel.app/" />
+    <meta property="og:image" content="https://qr-craft-iota.vercel.app/preview.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="QR Craft – Custom QR Code Generator" />
+    <meta name="twitter:description" content="Create stylish QR codes with full customization." />
+    <meta name="twitter:image" content="https://qr-craft-iota.vercel.app/preview.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://qr-craft-iota.vercel.app/" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Structured Data (VERY powerful for SEO) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "QR Craft",
+        "url": "https://qr-craft-iota.vercel.app/",
+        "description": "Free online QR code generator with customization options.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "author": {
+          "@type": "Person",
+          "name": "Avranil"
+        }
+      }
+    </script>
   </head>
+
   <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+
     <div id="root"></div>
+
+    <!-- Main React App -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
