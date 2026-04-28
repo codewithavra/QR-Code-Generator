@@ -18,7 +18,7 @@ import ColourPalette from "./ColourPalette";
 import { BsQrCode } from "react-icons/bs";
 import type { Options } from "../types";
 import { download } from "../utilities/download";
-import { drawWithText } from "../utilities/canvasWithText";
+import { createExportCanvas } from "../utilities/createExportCanvas";
 
 type prop = {
   preview: boolean;
@@ -69,17 +69,15 @@ const OutputSection = ({
         {preview && (
           <button
             className="flex h-fit w-full items-center justify-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-50 transition-transform duration-200 ease-in-out active:scale-95"
-            onClick={() => {
-              if (!canvasRef.current) return;
-
-              const finalCanvas = drawWithText(
-                canvasRef.current,
+            onClick={async () => {
+              const exportCanvas = await createExportCanvas(
+                option,
                 heading,
                 description
               );
 
-              if (finalCanvas) {
-                download(finalCanvas, "qr-Image.png");
+              if (exportCanvas) {
+                download(exportCanvas, "qr-Image.png");
               }
             }}
           >

@@ -7,7 +7,7 @@
  * Node modules
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Options } from "./types";
 
 /**
@@ -36,8 +36,15 @@ const App = () => {
     await qrcodeGenerator(option, canvasRef.current);
     setPreview(true);
   };
-  const[heading,setHeading] = useState<string>("Sample Heading")
-  const[description,setDescription] = useState<string>("This is a sample description")
+  const [heading, setHeading] = useState<string>("Sample Heading");
+  const [description, setDescription] = useState<string>(
+    "This is a sample description"
+  );
+
+  useEffect(() => {
+    if (!preview || !canvasRef.current || !option.data) return;
+    void qrcodeGenerator(option, canvasRef.current);
+  }, [option, preview]);
 
   return (
     <div

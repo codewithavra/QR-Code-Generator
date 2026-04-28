@@ -3,108 +3,108 @@ export const drawWithText = (
   heading: string,
   description: string
 ) => {
-  if (!heading && !description) return canvas;
+  const qrWidth = canvas.width;
+  const qrHeight = canvas.height;
+  const outerPadding = Math.max(40, Math.round(qrWidth * 0.08));
+  const qrPadding = Math.max(28, Math.round(qrWidth * 0.06));
+  const cardWidth = qrWidth + outerPadding * 2;
+  const contentWidth = cardWidth - outerPadding * 2;
 
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+  const headingText = heading.trim();
+  const descriptionText = description.trim();
 
-  const width = canvas.width;
-  const padding = 20;
-  const maxWidth = width - padding * 2;
+  const headingFontSize = Math.max(36, Math.round(qrWidth * 0.08));
+  const descriptionFontSize = Math.max(24, Math.round(qrWidth * 0.045));
+  const headingLineHeight = Math.round(headingFontSize * 1.25);
+  const descriptionLineHeight = Math.round(descriptionFontSize * 1.35);
 
   const tempCanvas = document.createElement("canvas");
-  tempCanvas.width = width;
-  tempCanvas.height = 1000; // temporary large height
-
   const tempCtx = tempCanvas.getContext("2d");
   if (!tempCtx) return;
 
-  tempCtx.textAlign = "center";
-  tempCtx.fillStyle = "#000";
-
-  // --- helper for wrapping ---
   const wrapText = (
     ctx: CanvasRenderingContext2D,
     text: string,
     maxWidth: number
   ) => {
-    const words = text.split(" ");
+    if (!text) return [];
+    const words = text.split(/\s+/).filter(Boolean);
     const lines: string[] = [];
     let line = "";
 
-    for (let i = 0; i < words.length; i++) {
-      const testLine = line + words[i] + " ";
-      if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+    words.forEach((word) => {
+      const testLine = line ? `${line} ${word}` : word;
+      if (ctx.measureText(testLine).width > maxWidth && line) {
         lines.push(line);
-        line = words[i] + " ";
+        line = word;
       } else {
         line = testLine;
       }
-    }
-    lines.push(line);
+    });
+
+    if (line) lines.push(line);
     return lines;
   };
 
-  let y = 20;
+  tempCtx.font = `700 ${headingFontSize}px Inter, sans-serif`;
+  const headingLines = wrapText(tempCtx, headingText, contentWidth);
 
-  // --- heading ---
-  let headingLines: string[] = [];
+  tempCtx.font = `500 ${descriptionFontSize}px Inter, sans-serif`;
+  const descriptionLines = wrapText(tempCtx, descriptionText, contentWidth);
 
-  if (heading) {
-    tempCtx.font = "bold 20px sans-serif";
-    headingLines = wrapText(tempCtx, heading, maxWidth);
-    y += headingLines.length * 24 + 10;
-  }
+  const headingBlockHeight = headingLines.length * headingLineHeight;
+  const descriptionBlockHeight = descriptionLines.length * descriptionLineHeight;
+  const topGap = headingLines.length ? Math.round(outerPadding * 0.45) : 0;
+  const bottomGap = descriptionLines.length ? Math.round(outerPadding * 0.45) : 0;
 
-  // --- QR position ---
-  y += canvas.height + 20;
+  const cardHeight =
+    outerPadding +
+    headingBlockHeight +
+    topGap +
+    qrPadding +
+    qrHeight +
+    qrPadding +
+    bottomGap +
+    descriptionBlockHeight +
+    outerPadding;
 
-  // --- description ---
-  let descLines: string[] = [];
-
-  if (description) {
-    tempCtx.font = "14px sans-serif";
-    descLines = wrapText(tempCtx, description, maxWidth);
-    y += descLines.length * 18;
-  }
-
-  // --- final canvas ---
   const finalCanvas = document.createElement("canvas");
-  finalCanvas.width = width;
-  finalCanvas.height = y + 20;
+  finalCanvas.width = cardWidth;
+  finalCanvas.height = cardHeight;
 
   const finalCtx = finalCanvas.getContext("2d");
   if (!finalCtx) return;
 
-  // background
-  finalCtx.fillStyle = "#fff";
-  finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+  finalCtx.fillStyle = "#ffffff";
+  finalCtx.fillRect(0, 0, cardWidth, cardHeight);
 
   finalCtx.textAlign = "center";
-  finalCtx.fillStyle = "#000";
+  finalCtx.textBaseline = "top";
+  finalCtx.fillStyle = "#111827";
 
-  let currentY = 30;
+  let currentY = outerPadding;
 
-  // draw heading
-  if (heading) {
-    finalCtx.font = "bold 20px sans-serif";
+  if (headingLines.length) {
+    finalCtx.font = `700 ${headingFontSize}px Inter, sans-serif`;
     headingLines.forEach((line) => {
-      finalCtx.fillText(line, width / 2, currentY);
-      currentY += 24;
+      finalCtx.fillText(line, cardWidth / 2, currentY);
+      currentY += headingLineHeight;
     });
-    currentY += 10;
+    currentY += topGap;
   }
 
-  // draw QR
-  finalCtx.drawImage(canvas, 0, currentY);
-  currentY += canvas.height + 20;
+  const qrX = (cardWidth - qrWidth) / 2;
+  currentY += qrPadding;
+  finalCtx.drawImage(canvas, qrX, currentY);
+  currentY += qrHeight + qrPadding;
 
-  // draw description
-  if (description) {
-    finalCtx.font = "14px sans-serif";
-    descLines.forEach((line) => {
-      finalCtx.fillText(line, width / 2, currentY);
-      currentY += 18;
+  if (descriptionLines.length) {
+    currentY += bottomGap;
+    finalCtx.fillStyle = "#4b5563";
+    finalCtx.font = `500 ${descriptionFontSize}px Inter, sans-serif`;
+    descriptionLines.forEach((line) => {
+      finalCtx.fillText(line, cardWidth / 2, currentY);
+      currentY += descriptionLineHeight;
     });
   }
 

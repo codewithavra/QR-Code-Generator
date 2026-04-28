@@ -41,6 +41,9 @@ const ColourPalette = ({ option, setOption }: prop) => {
           type="color"
           id="backgroundColour"
           value={option.background}
+          onInput={(e) =>
+            updateOption(setOption, "background", e.currentTarget.value)
+          }
           onChange={(e) =>
             updateOption(setOption, "background", e.target.value)
           }
@@ -63,6 +66,9 @@ const ColourPalette = ({ option, setOption }: prop) => {
           type="color"
           id="foregroundColour"
           value={option.foreground}
+          onInput={(e) =>
+            updateOption(setOption, "foreground", e.currentTarget.value)
+          }
           onChange={(e) =>
             updateOption(setOption, "foreground", e.target.value)
           }
